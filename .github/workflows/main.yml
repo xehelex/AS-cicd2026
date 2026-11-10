@@ -3,7 +3,7 @@ name: Primer workflow
 on: 
   push:
     branches:
-    - main 
+    - prueba1 
 
 jobs:
   probar_software:
