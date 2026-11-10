@@ -1,1 +1,1 @@
-printttt("Hola mundo")
+print("Hola mundo")
