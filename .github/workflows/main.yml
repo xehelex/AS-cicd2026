@@ -3,7 +3,11 @@ name: Primer workflow
 on: 
   push:
     branches:
-    - prueba1 
+    - main
+  pull_request:
+    branches:
+      - main
+      - prueba1
 
 jobs:
   probar_software:
