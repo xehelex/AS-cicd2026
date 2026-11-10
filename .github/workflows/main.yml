@@ -1,0 +1,45 @@
+name: Primer workflow
+
+on: 
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+      - main
+      - prueba1
+
+jobs:
+  probar_software:
+    runs-on: ${{matrix.os}}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, mac0s-latest]
+
+    steps:
+      - name: Bajar codigo
+        uses: actions/checkout@v7
+
+      - name: Probar codigo
+        run: python3 main.py
+
+  crear_subir_imagen:
+    runs-on: ubuntu-latest
+    needs: probar_software
+
+    steps:
+      - name: Bajar codigo
+        uses: actions/checkout@v7
+      -
+        name: Login to Docker Hub
+        uses: docker/login-action@v4
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      -
+        name: Build and push
+        uses: docker/build-push-action@v7
+        with:
+          push: true
+          tags: xehelex/hola2026
